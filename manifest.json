@@ -3,8 +3,14 @@
   "version": "1.0",
   "description": "Saves and restores tabs state",
   "permissions": [
+    "webNavigation",
+    "tabs",
+    "<all_urls>",
+    "activeTab",
     "declarativeContent",
-    "storage"
+    "storage",
+    "http://*/*",
+    "https://*/*"
   ],
   "background": {
     "scripts": [
@@ -12,7 +18,7 @@
     ],
     "persistent": false
   },
-  "page_action": {
+  "browser_action": {
     "default_popup": "popup.html",
     "default_icon": {
       "16": "icon16.png",
