@@ -1,0 +1,14 @@
+body {
+  width: 300px;
+  font-family: 'Encode Sans Expanded', sans-serif;
+}
+
+li {
+  padding: 4px 4px;
+  list-style: none;
+}
+
+li:hover {
+  border: 2px solid black;
+  padding: 4px 4px;
+}

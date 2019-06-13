@@ -25,20 +25,22 @@ chrome.storage.sync.get(['BFO'], function(result) {
 
 
   function openWorkspace(event){
+      let finalTab;
       chrome.tabs.query({currentWindow: true}, function(tabs) {
 
-      for (let i = 0; i < tabs.length - 1; i++){
-        chrome.tabs.remove(tabs[i].id, function() { });
+      for (let i = 0; i < tabs.length; i++){
+        if (i === 0) finalTab = tabs[i].id;
+        else chrome.tabs.remove(tabs[i].id, function() { });
       }
-      // chrome.storage.local.set({'BFO' : cache}, function() {
-        //   alert(`local ${JSON.stringify(cache)}`);
-        // });
+
       });
-      chrome.tabs.getCurrent(function(tab) {
-  });
 
-    alert(event.target.someParam);
+      key = event.target.someParam;
 
+      for (let i = 0; i < cache[key].length; i++){
+        chrome.tabs.create({'url' : cache[key][i]}, function() { });
+      }
+      chrome.tabs.remove(finalTab, function() {})
 
 
   }
