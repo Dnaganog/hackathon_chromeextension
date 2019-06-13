@@ -5,74 +5,140 @@
 //     file: 'alert.js'
 //   });
 // }
+
+
+
+
+
+
 let cache = {};
-chrome.storage.local.get(['BFO'], function(result) {
-  // console.log('Value currently is ' + result.url);
-  cache = result['BFO'] || {};
-});
-
-chrome.storage.sync.get(['BFO'], function(result) {
-  // console.log('Value currently is ' + result.url);
-  cache = result['BFO'] || {};
-});
-
-
-
-
-
-
-
-function alerter() {
-
-  // store value;
-
-  let key = document.querySelector('input').value || 'blabla'
-
-  // cache['BFO'][key] = tabs;
-  alert(key);
-  chrome.tabs.query({currentWindow: true}, function(tabs) {
-
-    const wrapper = {'BFO': cache};
-    wrapper['BFO'][key] = [];
-    tabs.forEach(tab => {
-      let li = document.createElement('li');
-      li.innerText = tab.url;
-      document.querySelector('ul').appendChild(li);
-      wrapper['BFO'][key].push(tab.url);
-    });
-
-    chrome.storage.sync.set(wrapper, function() {
-      chrome.storage.local.set(wrapper, function() {
-      });
-    });
-  });
-
-
-}
-
-
-document.querySelector('button').addEventListener('click', alerter);
-document.querySelector('input').addEventListener('keydown', (event) => {
-  if (event.keyCode === 13) {
-    alerter();
-    document.querySelector('input').value = '';
-  }
-})
- // document.getElementById('changeColor').addEventListener('click', hello);
-// let test = chrome.storage.sync.get(['BFO'], function(result) {
+// chrome.storage.local.get(['BFO'], function(result) {
 //   // console.log('Value currently is ' + result.url);
-//     if (result === undefined) {
-//       cache = ['a'];
-//     } else {
-//       cache = ['b'];
-//     }
-//     return 1;
+//   // alert(`local ${JSON.stringify(result.BFO)}`);
+//   cache = result.BFO || {};
 
 // });
+// alert(`local ${JSON.stringify(cache)}`);
 
-// let smp = document.createElement('h1');
-// smp.innerText = JSON.stringify(test);
-// document.querySelector('body').appendChild(smp);
+chrome.storage.sync.get(['BFO'], function(result) {
+
+
+
+  function openWorkspace(event){
+      chrome.tabs.query({currentWindow: true}, function(tabs) {
+
+      for (let i = 0; i < tabs.length - 1; i++){
+        chrome.tabs.remove(tabs[i].id, function() { });
+      }
+      // chrome.storage.local.set({'BFO' : cache}, function() {
+        //   alert(`local ${JSON.stringify(cache)}`);
+        // });
+      });
+      chrome.tabs.getCurrent(function(tab) {
+  });
+
+    alert(event.target.someParam);
+
+
+
+  }
+
+
+
+  // console.log('Value currently is ' + result.url);
+  cache = result.BFO || {};
+
+
+    Object.keys(cache).forEach(key => {
+
+        let ele = document.createElement('li');
+
+        ele.addEventListener('click', openWorkspace );
+        ele.someParam = key;
+
+        ele.innerHTML = key;
+
+        // <button id=${key}> Delete</button>`;
+        let butt = document.createElement('button');
+
+
+        document.querySelector('ul').appendChild(ele);
+
+
+    });
+
+    chrome.storage.sync.set({'BFO' : cache}, function() {
+      // alert(`sync ${JSON.stringify(cache)}`);
+      // alert(Object.keys(cache));
+    });
+    // chrome.storage.local.set({'BFO' : cache}, function() {
+      //   alert(`local ${JSON.stringify(cache)}`);
+      // });
+
+  // function onDelObj(key) {
+  //   delete cache.key;
+  // }
+
+
+
+  function alerter() {
+
+    // store value;
+
+    let key = document.querySelector('input').value || 'blabla'
+
+    // cache['BFO'][key] = tabs;
+    // alert(key);
+    chrome.tabs.query({currentWindow: true}, function(tabs) {
+
+      const wrapper = {'BFO': cache};
+      wrapper['BFO'][key] = [];
+
+      tabs.forEach(tab => {
+        let li = document.createElement('li');
+        li.innerText = tab.url;
+        document.querySelector('ul').appendChild(li);
+        wrapper['BFO'][key].push(tab.url);
+      });
+
+      chrome.storage.sync.set({'BFO' : cache}, function() {
+        // alert(`sync ${JSON.stringify(cache)}`);
+        // alert(Object.keys(cache));
+      });
+      // chrome.storage.local.set({'BFO' : cache}, function() {
+        //   alert(`local ${JSON.stringify(cache)}`);
+        // });
+      });
+
+
+    }
+
+
+    document.querySelector('button').addEventListener('click', alerter);
+    document.querySelector('input').addEventListener('keydown', (event) => {
+      if (event.keyCode === 13) {
+        alerter();
+        document.querySelector('input').value = '';
+      }
+    })
+
+    // alert(`sync ${JSON.stringify(cache)}`);
+  });
+  // document.getElementById('changeColor').addEventListener('click', hello);
+  // let test = chrome.storage.sync.get(['BFO'], function(result) {
+    //   // console.log('Value currently is ' + result.url);
+    //     if (result === undefined) {
+        //       cache = ['a'];
+        //     } else {
+          //       cache = ['b'];
+          //     }
+          //     return 1;
+
+          // });
+
+          // let smp = document.createElement('h1');
+          // smp.innerText = JSON.stringify(test);
+          // document.querySelector('body').appendChild(smp);
 
 // chrome.tabs.query({currentWindow: true}, function(tabs) {
 //   let key = Math.random();
