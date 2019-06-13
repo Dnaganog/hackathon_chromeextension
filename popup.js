@@ -15,10 +15,18 @@
 chrome.tabs.query({currentWindow: true}, function(tabs) {
   tabs.forEach(tab => {
     let li = document.createElement('li');
-    li.innerHTML = tab.url;
+    chrome.storage.sync.set(tab, function() {
+      console.log('Value is set to ' + tab.url);
+    });
+    chrome.storage.sync.get(['url'], function(result) {
+      // console.log('Value currently is ' + result.url);
+      li.innerHTML = result.url;
+    });
     document.querySelector('ul').appendChild(li);
+
   });
 });
+
 
 // chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
 //   document.querySelector('li').innerHTML = tabs[0].url;
