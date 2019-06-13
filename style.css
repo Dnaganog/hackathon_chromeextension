@@ -3,12 +3,33 @@ body {
   font-family: 'Encode Sans Expanded', sans-serif;
 }
 
+input, #swoop {
+  background-color: #eee;
+  font-size: 14px;
+  border-radius: 6.25px;
+}
+
+#clear {
+  background-color: rgba(255, 0, 0, 0.05);
+  color: rgba(0, 0, 0, 0.5);
+  font-weight: 700;
+  font-size: 14px;
+  border-radius: 6.25px;
+}
+
 li {
   padding: 4px 4px;
   list-style: none;
+  font-size: 14px;
 }
 
-li:hover {
+#saves li:hover {
   border: 2px solid black;
+  border-radius: 6.25px;
   padding: 4px 4px;
+}
+
+#newLinks {
+  background-color: black;
+  color: limegreen;
 }

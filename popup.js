@@ -64,7 +64,7 @@ chrome.storage.sync.get(['BFO'], function(result) {
         let butt = document.createElement('button');
 
 
-        document.querySelector('ul').appendChild(ele);
+        document.querySelector('#saves').appendChild(ele);
 
 
     });
@@ -80,14 +80,21 @@ chrome.storage.sync.get(['BFO'], function(result) {
   // function onDelObj(key) {
   //   delete cache.key;
   // }
+  document.querySelector('#clear').addEventListener('click', clearCache);
 
+  function clearCache() {
+    chrome.storage.sync.set({'BFO' : {}}, function() {
+      // alert(`sync ${JSON.stringify(cache)}`);
+      // alert(Object.keys(cache));
+    });
+  }
 
 
   function alerter() {
 
     // store value;
 
-    let key = document.querySelector('input').value || 'blabla'
+    let key = document.querySelector('input').value || 'Default'
 
     // cache['BFO'][key] = tabs;
     // alert(key);
@@ -99,7 +106,7 @@ chrome.storage.sync.get(['BFO'], function(result) {
       tabs.forEach(tab => {
         let li = document.createElement('li');
         li.innerText = tab.url;
-        document.querySelector('ul').appendChild(li);
+        document.querySelector('#newLinks').appendChild(li);
         wrapper['BFO'][key].push(tab.url);
       });
 
@@ -116,7 +123,7 @@ chrome.storage.sync.get(['BFO'], function(result) {
     }
 
 
-    document.querySelector('button').addEventListener('click', alerter);
+    document.querySelector('#swoop').addEventListener('click', alerter);
     document.querySelector('input').addEventListener('keydown', (event) => {
       if (event.keyCode === 13) {
         alerter();
