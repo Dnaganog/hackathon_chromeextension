@@ -12,7 +12,7 @@
 
 
 
-chrome.tabs.query({active: false, currentWindow: true}, function(tabs) {
+chrome.tabs.query({currentWindow: true}, function(tabs) {
   tabs.forEach(tab => {
     let li = document.createElement('li');
     li.innerHTML = tab.url;
@@ -20,9 +20,9 @@ chrome.tabs.query({active: false, currentWindow: true}, function(tabs) {
   });
 });
 
-chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
-  document.querySelector('li').innerHTML = tabs[0].url;
-});
+// chrome.tabs.query({active: true, currentWindow: true}, function(tabs) {
+//   document.querySelector('li').innerHTML = tabs[0].url;
+// });
 
 
 // const changeColor = document.getElementById('changeColor');
