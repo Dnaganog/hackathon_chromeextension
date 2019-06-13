@@ -103,6 +103,9 @@ chrome.storage.sync.get(['BFO'], function(result) {
       const wrapper = {'BFO': cache};
       wrapper['BFO'][key] = [];
 
+      let beeboop = document.querySelector('h3');
+      beeboop.innerText = '**__Current__Tabs__Saved__**';
+      document.querySelector('#newLinks').appendChild(beeboop);
       tabs.forEach(tab => {
         let li = document.createElement('li');
         li.innerText = tab.url;
